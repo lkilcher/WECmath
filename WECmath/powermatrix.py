@@ -1,6 +1,7 @@
 import numpy as np
 import base2 as base
 from scipy.interpolate import interp2d
+import pkg_resources
 
 
 class PowerMatrix(object):
@@ -31,7 +32,8 @@ class PowerMatrix(object):
 
 
 def _checkpad(vec, range):
-    """This function pads a vector to zero if it is inside the limits of range."""
+    """This function pads a vector to zero if it is inside the limits
+    of range."""
     pad = [0, 0]
     if vec[0] > min(range):
         vec = np.concatenate((vec[0] - np.diff(vec[:2]) / 2, vec))
@@ -52,7 +54,9 @@ def interp2pmat(pmat, hs, tp, name=None):
     return PowerMatrix(func(base.tp_centers, base.hs_centers), name=name)
 
 
-tmpdat = np.genfromtxt(base.pkg_dir + '/pelamis.csv', delimiter=',')
+tmpdat = np.genfromtxt(pkg_resources.resource_filename('WECmath',
+                                                       'data/pelamis.csv'),
+                       delimiter=',')
 pelamis = interp2pmat(pmat=tmpdat[1:, 1:],
                       hs=tmpdat[1:, 0],
                       tp=tmpdat[0, 1:],
