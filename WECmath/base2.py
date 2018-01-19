@@ -1,7 +1,4 @@
 import numpy as np
-import os
-
-pkg_dir = os.path.dirname(os.path.realpath(__file__))
 
 hs_edges = np.arange(0, 11.1, 0.25)
 tp_edges = np.arange(2, 25.1, 0.25)
